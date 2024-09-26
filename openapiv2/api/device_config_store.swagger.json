@@ -1,0 +1,466 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/device_config_store.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "DeviceConfigStoreService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/device_config_stores": {
+      "get": {
+        "summary": "List DevEUIs of devices having configuration store.",
+        "operationId": "DeviceConfigStoreService_List",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiListDeviceConfigStoresResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "description": "Max number of chmasks to return in the result-set.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "description": "Offset in the result-set (for pagination).",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "applicationId",
+            "description": "Application ID (UUID) to filter devices on.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DeviceConfigStoreService"
+        ]
+      },
+      "post": {
+        "summary": "Create configuration store for the device.",
+        "operationId": "DeviceConfigStoreService_Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/apiCreateDeviceConfigStoreRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DeviceConfigStoreService"
+        ]
+      }
+    },
+    "/api/device_config_stores/{devEui}": {
+      "get": {
+        "summary": "Get returns the configuration store for the given DevEUI.",
+        "operationId": "DeviceConfigStoreService_Get",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiGetDeviceConfigStoreResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "devEui",
+            "description": "Device EUI (EUI64).",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DeviceConfigStoreService"
+        ]
+      },
+      "delete": {
+        "summary": "Delete removes the configuration store for the device.\nNote: Configurations fall back to the regional default.",
+        "operationId": "DeviceConfigStoreService_Delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "devEui",
+            "description": "Device EUI (EUI64).",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DeviceConfigStoreService"
+        ]
+      }
+    },
+    "/api/device_config_stores/{devEui}/alignment": {
+      "get": {
+        "summary": "Returns the configuration alignment status for the given device (whether\ncurrent configurations have been acknowledged by the device).",
+        "operationId": "DeviceConfigStoreService_GetConfigStoreAlignment",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiGetConfigStoreAlignmentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "devEui",
+            "description": "Device EUI (EUI64).",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DeviceConfigStoreService"
+        ]
+      }
+    },
+    "/api/device_config_stores/{devEui}/usable_uplink_channels": {
+      "get": {
+        "summary": "Get data on all uplink channels currently installed on the given device.\nNote: Includes their current activation status, possibly not yet aligned.",
+        "operationId": "DeviceConfigStoreService_GetAvailableUplinkChannels",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiGetAvailableChannelsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "devEui",
+            "description": "Device EUI (EUI64).",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DeviceConfigStoreService"
+        ]
+      }
+    },
+    "/api/device_config_stores/{deviceConfigStore.devEui}": {
+      "put": {
+        "summary": "Update the configuration store for the given device.",
+        "operationId": "DeviceConfigStoreService_Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "deviceConfigStore.devEui",
+            "description": "Device EUI (EUI64).",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "deviceConfigStore": {
+                  "type": "object",
+                  "properties": {
+                    "chmaskConfig": {
+                      "$ref": "#/definitions/apiChMaskConfig",
+                      "description": "ChMask configuration object."
+                    }
+                  },
+                  "description": "Object to update.",
+                  "title": "Object to update."
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "DeviceConfigStoreService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "apiChMaskConfig": {
+      "type": "object",
+      "properties": {
+        "enabledUplinkChannelIndices": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": "Enabled uplink channels."
+        }
+      }
+    },
+    "apiConfigStoreAlignment": {
+      "type": "object",
+      "properties": {
+        "chmaskConfig": {
+          "type": "boolean",
+          "title": "Alignment of the ChMask configuration"
+        }
+      }
+    },
+    "apiCreateDeviceConfigStoreRequest": {
+      "type": "object",
+      "properties": {
+        "deviceConfigStore": {
+          "$ref": "#/definitions/apiDeviceConfigStore",
+          "description": "Object to create."
+        }
+      }
+    },
+    "apiDeviceConfigStore": {
+      "type": "object",
+      "properties": {
+        "devEui": {
+          "type": "string",
+          "description": "Device EUI (EUI64)."
+        },
+        "chmaskConfig": {
+          "$ref": "#/definitions/apiChMaskConfig",
+          "description": "ChMask configuration object."
+        }
+      }
+    },
+    "apiDeviceConfigStoreListItem": {
+      "type": "object",
+      "properties": {
+        "devEui": {
+          "type": "string",
+          "description": "Device EUI (EUI64)."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Created at timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp."
+        },
+        "alignment": {
+          "$ref": "#/definitions/apiConfigStoreAlignment",
+          "description": "Device alignment status with the stored configuration."
+        }
+      }
+    },
+    "apiDeviceUplinkChannel": {
+      "type": "object",
+      "properties": {
+        "frequency": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Frequency Hz."
+        },
+        "minDr": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Min. data-rate."
+        },
+        "maxDr": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Max. data-rate."
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether this channel is enabled on the device."
+        },
+        "userDefined": {
+          "type": "boolean",
+          "description": "Whether this channel is not among regional defaults."
+        }
+      }
+    },
+    "apiGetAvailableChannelsResponse": {
+      "type": "object",
+      "properties": {
+        "channels": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/apiDeviceUplinkChannel"
+          },
+          "description": "Available uplink channels."
+        }
+      }
+    },
+    "apiGetConfigStoreAlignmentResponse": {
+      "type": "object",
+      "properties": {
+        "alignment": {
+          "$ref": "#/definitions/apiConfigStoreAlignment",
+          "description": "Device alignment status with the stored configuration."
+        }
+      }
+    },
+    "apiGetDeviceConfigStoreResponse": {
+      "type": "object",
+      "properties": {
+        "deviceConfigStore": {
+          "$ref": "#/definitions/apiDeviceConfigStore",
+          "description": "Device configuration store object."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Created at timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp."
+        },
+        "alignment": {
+          "$ref": "#/definitions/apiConfigStoreAlignment",
+          "description": "Device alignment status with the stored configuration."
+        }
+      }
+    },
+    "apiListDeviceConfigStoresResponse": {
+      "type": "object",
+      "properties": {
+        "totalCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total number of configuration stores."
+        },
+        "result": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiDeviceConfigStoreListItem"
+          },
+          "description": "Result-set."
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

@@ -35,10 +35,12 @@ devshell:
 	docker compose run --rm chirpstack-rest-api bash
 
 generate:
+	go mod edit -replace github.com/chirpstack/chirpstack/api/go/v4=github.com/non-det-alle/chirpstack/api/go/v4@${VERSION}
 	go get -u github.com/chirpstack/chirpstack/api/go/v4@${VERSION}
 	cd chirpstack && git fetch && git checkout ${VERSION}
 	${GW_GEN} api/application.proto
 	${GW_GEN} api/device.proto
+	${GW_GEN} api/device_config_store.proto
 	${GW_GEN} api/device_profile.proto
 	${GW_GEN} api/device_profile_template.proto
 	${GW_GEN} api/gateway.proto
@@ -48,6 +50,7 @@ generate:
 
 	${GRPC_GEN} api/application.proto
 	${GRPC_GEN} api/device.proto
+	${GRPC_GEN} api/device_config_store.proto
 	${GRPC_GEN} api/device_profile.proto
 	${GRPC_GEN} api/device_profile_template.proto
 	${GRPC_GEN} api/gateway.proto
@@ -57,6 +60,7 @@ generate:
 
 	${API_GEN} api/application.proto
 	${API_GEN} api/device.proto
+	${API_GEN} api/device_config_store.proto
 	${API_GEN} api/device_profile.proto
 	${API_GEN} api/device_profile_template.proto
 	${API_GEN} api/gateway.proto

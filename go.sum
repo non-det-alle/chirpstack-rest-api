@@ -645,6 +645,8 @@ github.com/non-det-alle/chirpstack/api/go/v4 v4.9.1-0.20240925131545-4d7e3d11c17
 github.com/non-det-alle/chirpstack/api/go/v4 v4.9.1-0.20240925131545-4d7e3d11c17d/go.mod h1:NNVeEib9I7GGomK2bPiP5c5UstkoMfxYiJ1Z5wrYCh4=
 github.com/non-det-alle/chirpstack/api/go/v4 v4.9.1-0.20240926102056-5168d4480a25 h1:LxWW1NEtPSFRoqMixbCKk67b6A45y6/iV0dxWucA6RE=
 github.com/non-det-alle/chirpstack/api/go/v4 v4.9.1-0.20240926102056-5168d4480a25/go.mod h1:NNVeEib9I7GGomK2bPiP5c5UstkoMfxYiJ1Z5wrYCh4=
+github.com/non-det-alle/chirpstack/api/go/v4 v4.9.1-0.20250121150241-0e85045b86bc h1:HCXZppC60TOt4mQa1OLaS1IHAb2vAy7FSsN0AAaGpoY=
+github.com/non-det-alle/chirpstack/api/go/v4 v4.9.1-0.20250121150241-0e85045b86bc/go.mod h1:NNVeEib9I7GGomK2bPiP5c5UstkoMfxYiJ1Z5wrYCh4=
 github.com/non-det-alle/chirpstack/api/go/v4 v4.10.0-cs.1 h1:yLi4RTQG+3Zb82wxbb5A59t7vlToIoaNhi0BVTSieww=
 github.com/non-det-alle/chirpstack/api/go/v4 v4.10.0-cs.1/go.mod h1:NNVeEib9I7GGomK2bPiP5c5UstkoMfxYiJ1Z5wrYCh4=
 github.com/oklog/ulid v1.3.1/go.mod h1:CirwcVhetQ6Lv90oh/F+FBtV6XMibvdAFo93nm5qn4U=

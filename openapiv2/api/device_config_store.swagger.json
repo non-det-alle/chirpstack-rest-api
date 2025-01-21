@@ -339,10 +339,6 @@
           "type": "string",
           "format": "date-time",
           "description": "Last update timestamp."
-        },
-        "alignment": {
-          "$ref": "#/definitions/apiConfigStoreAlignment",
-          "description": "Device alignment status with the stored configuration."
         }
       }
     },
@@ -411,10 +407,6 @@
           "type": "string",
           "format": "date-time",
           "description": "Last update timestamp."
-        },
-        "alignment": {
-          "$ref": "#/definitions/apiConfigStoreAlignment",
-          "description": "Device alignment status with the stored configuration."
         }
       }
     },

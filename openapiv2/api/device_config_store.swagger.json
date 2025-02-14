@@ -62,38 +62,6 @@
         "tags": [
           "DeviceConfigStoreService"
         ]
-      },
-      "post": {
-        "summary": "Create configuration store for the device.",
-        "operationId": "DeviceConfigStoreService_Create",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "type": "object",
-              "properties": {}
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/apiCreateDeviceConfigStoreRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DeviceConfigStoreService"
-        ]
       }
     },
     "/api/device_config_stores/{devEui}": {
@@ -225,8 +193,8 @@
     },
     "/api/device_config_stores/{deviceConfigStore.devEui}": {
       "put": {
-        "summary": "Update the configuration store for the given device.",
-        "operationId": "DeviceConfigStoreService_Update",
+        "summary": "Set configuration store for the device (i.e., Upsert).",
+        "operationId": "DeviceConfigStoreService_Set",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -265,8 +233,8 @@
                       "description": "ChMask configuration object."
                     }
                   },
-                  "description": "Object to update.",
-                  "title": "Object to update."
+                  "description": "Object to set.",
+                  "title": "Object to set."
                 }
               }
             }
@@ -298,15 +266,6 @@
         "chmaskConfig": {
           "type": "boolean",
           "title": "Alignment of the ChMask configuration"
-        }
-      }
-    },
-    "apiCreateDeviceConfigStoreRequest": {
-      "type": "object",
-      "properties": {
-        "deviceConfigStore": {
-          "$ref": "#/definitions/apiDeviceConfigStore",
-          "description": "Object to create."
         }
       }
     },

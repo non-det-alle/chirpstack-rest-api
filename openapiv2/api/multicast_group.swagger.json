@@ -37,7 +37,7 @@
         "parameters": [
           {
             "name": "limit",
-            "description": "Max number of multicast groups to return in the result-set.",
+            "description": "Max number of multicast groups to return in the result-set.\nIf not set, it will be treated as 0, and the response will only return the total_count.",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -560,6 +560,11 @@
                       "type": "string",
                       "format": "byte",
                       "description": "Payload."
+                    },
+                    "expiresAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Expires at (optional).\nExpired queue-items will be automatically removed from the queue."
                     }
                   },
                   "description": "Multicast queue-item to enqueue.",
@@ -770,6 +775,11 @@
           "type": "string",
           "format": "byte",
           "description": "Payload."
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Expires at (optional).\nExpired queue-items will be automatically removed from the queue."
         }
       }
     },

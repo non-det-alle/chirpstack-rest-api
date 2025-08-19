@@ -665,6 +665,8 @@ github.com/non-det-alle/chirpstack/api/go/v4 v4.12.1-0.20250427111306-682eeecc12
 github.com/non-det-alle/chirpstack/api/go/v4 v4.12.1-0.20250427111306-682eeecc121b/go.mod h1:q0qEDGoRQ4m5xxjqdt6wb/4UwWC03n5+2kJ2WH52jhI=
 github.com/non-det-alle/chirpstack/api/go/v4 v4.12.2-0.20250511143450-5ee1d28afb54 h1:6l750kR8f05dZdNDgSeEHsEq1aWCrI3VeIAFYy6yKtE=
 github.com/non-det-alle/chirpstack/api/go/v4 v4.12.2-0.20250511143450-5ee1d28afb54/go.mod h1:q0qEDGoRQ4m5xxjqdt6wb/4UwWC03n5+2kJ2WH52jhI=
+github.com/non-det-alle/chirpstack/api/go/v4 v4.14.1-0.20250819152504-4409b5b960ea h1:BQXfPmb5rHFCW6Afi30nrImp1P8fD/Yp9mBeMDQuP5E=
+github.com/non-det-alle/chirpstack/api/go/v4 v4.14.1-0.20250819152504-4409b5b960ea/go.mod h1:EqvcS3qE73PunKGKkwxQ69pBx+xPcGAwVE6FFYSIzhk=
 github.com/oklog/ulid v1.3.1/go.mod h1:CirwcVhetQ6Lv90oh/F+FBtV6XMibvdAFo93nm5qn4U=
 github.com/pascaldekloe/goe v0.0.0-20180627143212-57f6aae5913c/go.mod h1:lzWF7FIEvWOWxwDKqyGYQf6ZUaNfKdP144TG7ZOy1lc=
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=

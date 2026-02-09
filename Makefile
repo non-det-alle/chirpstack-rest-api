@@ -42,7 +42,6 @@ generate:
 	${GW_GEN} api/device.proto
 	${GW_GEN} api/device_config_store.proto
 	${GW_GEN} api/device_profile.proto
-	${GW_GEN} api/device_profile_template.proto
 	${GW_GEN} api/gateway.proto
 	${GW_GEN} api/multicast_group.proto
 	${GW_GEN} api/tenant.proto
@@ -52,7 +51,6 @@ generate:
 	${GRPC_GEN} api/device.proto
 	${GRPC_GEN} api/device_config_store.proto
 	${GRPC_GEN} api/device_profile.proto
-	${GRPC_GEN} api/device_profile_template.proto
 	${GRPC_GEN} api/gateway.proto
 	${GRPC_GEN} api/multicast_group.proto
 	${GRPC_GEN} api/tenant.proto
@@ -62,7 +60,6 @@ generate:
 	${API_GEN} api/device.proto
 	${API_GEN} api/device_config_store.proto
 	${API_GEN} api/device_profile.proto
-	${API_GEN} api/device_profile_template.proto
 	${API_GEN} api/gateway.proto
 	${API_GEN} api/multicast_group.proto
 	${API_GEN} api/tenant.proto

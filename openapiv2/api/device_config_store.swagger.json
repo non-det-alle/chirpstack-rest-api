@@ -96,7 +96,7 @@
         ]
       },
       "delete": {
-        "summary": "Delete removes the configuration store for the device.\nNote: Configurations fall back to the regional default.",
+        "summary": "Delete removes the configuration store for the device.\nNote: Configurations fall back to the regional default / ADR.",
         "operationId": "DeviceConfigStoreService_Delete",
         "responses": {
           "200": {
@@ -125,73 +125,7 @@
         "tags": [
           "DeviceConfigStoreService"
         ]
-      }
-    },
-    "/api/device_config_stores/{devEui}/alignment": {
-      "get": {
-        "summary": "Returns the configuration alignment status for the given device (whether\ncurrent configurations have been acknowledged by the device).",
-        "operationId": "DeviceConfigStoreService_GetConfigStoreAlignment",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/apiGetConfigStoreAlignmentResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "devEui",
-            "description": "Device EUI (EUI64).",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "DeviceConfigStoreService"
-        ]
-      }
-    },
-    "/api/device_config_stores/{devEui}/usable_uplink_channels": {
-      "get": {
-        "summary": "Get data on all uplink channels currently installed on the given device.\nNote: Includes their current activation status, possibly not yet aligned.",
-        "operationId": "DeviceConfigStoreService_GetAvailableUplinkChannels",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/apiGetAvailableChannelsResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "devEui",
-            "description": "Device EUI (EUI64).",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "DeviceConfigStoreService"
-        ]
-      }
-    },
-    "/api/device_config_stores/{deviceConfigStore.devEui}": {
+      },
       "put": {
         "summary": "Set configuration store for the device (i.e., Upsert).",
         "operationId": "DeviceConfigStoreService_Set",
@@ -212,7 +146,7 @@
         },
         "parameters": [
           {
-            "name": "deviceConfigStore.devEui",
+            "name": "devEui",
             "description": "Device EUI (EUI64).",
             "in": "path",
             "required": true,
@@ -226,15 +160,8 @@
               "type": "object",
               "properties": {
                 "deviceConfigStore": {
-                  "type": "object",
-                  "properties": {
-                    "chmaskConfig": {
-                      "$ref": "#/definitions/apiChMaskConfig",
-                      "description": "ChMask configuration object."
-                    }
-                  },
-                  "description": "Object to set.",
-                  "title": "Object to set."
+                  "$ref": "#/definitions/apiDeviceConfigStore",
+                  "description": "Object to set."
                 }
               }
             }
@@ -244,10 +171,74 @@
           "DeviceConfigStoreService"
         ]
       }
+    },
+    "/api/device_config_stores/{devEui}/alignment": {
+      "get": {
+        "summary": "Returns the device's alignment status for stored configurations\n(whether they have been sent to and acknowledged by the device).",
+        "operationId": "DeviceConfigStoreService_GetDeviceConfigAlignment",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiGetDeviceConfigAlignmentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "devEui",
+            "description": "Device EUI (EUI64).",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DeviceConfigStoreService"
+        ]
+      }
+    },
+    "/api/device_config_stores/{devEui}/device_current_config": {
+      "get": {
+        "summary": "Get the MAC layer transmission parameters currently in use by the given device as far\nas the server knows, based on most recent transmissions and MAC command acknowledgments.\nNote: Params may not yet be aligned with the ones set in the device's config store.",
+        "operationId": "DeviceConfigStoreService_GetDeviceCurrentParams",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiGetDeviceCurrentParamsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "devEui",
+            "description": "Device EUI (EUI64).",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DeviceConfigStoreService"
+        ]
+      }
     }
   },
   "definitions": {
-    "apiChMaskConfig": {
+    "apiDeviceConfigStore": {
       "type": "object",
       "properties": {
         "enabledUplinkChannelIndices": {
@@ -256,29 +247,27 @@
             "type": "integer",
             "format": "int64"
           },
-          "description": "Enabled uplink channels."
-        }
-      }
-    },
-    "apiConfigStoreAlignment": {
-      "type": "object",
-      "properties": {
-        "chmaskConfig": {
-          "type": "boolean",
-          "title": "Alignment of the ChMask configuration"
-        }
-      }
-    },
-    "apiDeviceConfigStore": {
-      "type": "object",
-      "properties": {
-        "devEui": {
-          "type": "string",
-          "description": "Device EUI (EUI64)."
+          "title": "Enabled uplink channel indices in the channel mask.\n(missing channels are disabled)"
         },
-        "chmaskConfig": {
-          "$ref": "#/definitions/apiChMaskConfig",
-          "description": "ChMask configuration object."
+        "dr": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Data-rate."
+        },
+        "txPowerIndex": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Transmission power index."
+        },
+        "nbTrans": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Number of transmissions."
+        },
+        "maxDutyCycle": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Maximum duty-cycle."
         }
       }
     },
@@ -309,15 +298,13 @@
           "format": "int64",
           "description": "Frequency Hz."
         },
-        "minDr": {
-          "type": "integer",
-          "format": "int64",
-          "description": "Min. data-rate."
-        },
-        "maxDr": {
-          "type": "integer",
-          "format": "int64",
-          "description": "Max. data-rate."
+        "dataRates": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": "Available data-rates."
         },
         "enabled": {
           "type": "boolean",
@@ -329,24 +316,28 @@
         }
       }
     },
-    "apiGetAvailableChannelsResponse": {
+    "apiGetDeviceConfigAlignmentResponse": {
       "type": "object",
       "properties": {
-        "channels": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/apiDeviceUplinkChannel"
-          },
-          "description": "Available uplink channels."
-        }
-      }
-    },
-    "apiGetConfigStoreAlignmentResponse": {
-      "type": "object",
-      "properties": {
-        "alignment": {
-          "$ref": "#/definitions/apiConfigStoreAlignment",
-          "description": "Device alignment status with the stored configuration."
+        "enabledUplinkChannelIndices": {
+          "type": "boolean",
+          "description": "Alignment of the mask of enabled uplink channels."
+        },
+        "dr": {
+          "type": "boolean",
+          "description": "Alignment of the data-rate."
+        },
+        "txPowerIndex": {
+          "type": "boolean",
+          "description": "Alignment of the transmission power index."
+        },
+        "nbTrans": {
+          "type": "boolean",
+          "description": "Alignment of the number of transmissions."
+        },
+        "maxDutyCycle": {
+          "type": "boolean",
+          "description": "Alignment of the maximum duty-cycle."
         }
       }
     },
@@ -366,6 +357,38 @@
           "type": "string",
           "format": "date-time",
           "description": "Last update timestamp."
+        }
+      }
+    },
+    "apiGetDeviceCurrentParamsResponse": {
+      "type": "object",
+      "properties": {
+        "channels": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/apiDeviceUplinkChannel"
+          },
+          "description": "Uplink channels currently available to the device."
+        },
+        "dr": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Data-rate."
+        },
+        "txPowerIndex": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Transmission power index."
+        },
+        "nbTrans": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Number of transmissions."
+        },
+        "maxDutyCycle": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Maximum duty-cycle."
         }
       }
     },

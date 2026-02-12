@@ -5,7 +5,7 @@ go 1.23.0
 toolchain go1.24.2
 
 require (
-	github.com/chirpstack/chirpstack/api/go/v4 v4.16.1
+	github.com/chirpstack/chirpstack/api/go/v4 v4.16.2
 	github.com/goreleaser/goreleaser v1.10.2
 	github.com/goreleaser/nfpm/v2 v2.16.0
 	github.com/gorilla/handlers v1.5.1
@@ -163,4 +163,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/chirpstack/chirpstack/api/go/v4 => github.com/non-det-alle/chirpstack/api/go/v4 v4.14.1-0.20250819152504-4409b5b960ea
+replace github.com/chirpstack/chirpstack/api/go/v4 => github.com/non-det-alle/chirpstack/api/go/v4 v4.16.3-0.20260212185842-468e02d14f92

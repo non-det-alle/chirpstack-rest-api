@@ -50,14 +50,14 @@ func request_DeviceConfigStoreService_Set_0(ctx context.Context, marshaler runti
 		_   = err
 	)
 
-	val, ok = pathParams["device_config_store.dev_eui"]
+	val, ok = pathParams["dev_eui"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "device_config_store.dev_eui")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "dev_eui")
 	}
 
-	err = runtime.PopulateFieldFromPath(&protoReq, "device_config_store.dev_eui", val)
+	protoReq.DevEui, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "device_config_store.dev_eui", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "dev_eui", err)
 	}
 
 	msg, err := client.Set(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -84,14 +84,14 @@ func local_request_DeviceConfigStoreService_Set_0(ctx context.Context, marshaler
 		_   = err
 	)
 
-	val, ok = pathParams["device_config_store.dev_eui"]
+	val, ok = pathParams["dev_eui"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "device_config_store.dev_eui")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "dev_eui")
 	}
 
-	err = runtime.PopulateFieldFromPath(&protoReq, "device_config_store.dev_eui", val)
+	protoReq.DevEui, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "device_config_store.dev_eui", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "dev_eui", err)
 	}
 
 	msg, err := server.Set(ctx, &protoReq)
@@ -239,8 +239,8 @@ func local_request_DeviceConfigStoreService_List_0(ctx context.Context, marshale
 
 }
 
-func request_DeviceConfigStoreService_GetConfigStoreAlignment_0(ctx context.Context, marshaler runtime.Marshaler, client DeviceConfigStoreServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetConfigStoreAlignmentRequest
+func request_DeviceConfigStoreService_GetDeviceConfigAlignment_0(ctx context.Context, marshaler runtime.Marshaler, client DeviceConfigStoreServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetDeviceConfigAlignmentRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -260,13 +260,13 @@ func request_DeviceConfigStoreService_GetConfigStoreAlignment_0(ctx context.Cont
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "dev_eui", err)
 	}
 
-	msg, err := client.GetConfigStoreAlignment(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.GetDeviceConfigAlignment(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_DeviceConfigStoreService_GetConfigStoreAlignment_0(ctx context.Context, marshaler runtime.Marshaler, server DeviceConfigStoreServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetConfigStoreAlignmentRequest
+func local_request_DeviceConfigStoreService_GetDeviceConfigAlignment_0(ctx context.Context, marshaler runtime.Marshaler, server DeviceConfigStoreServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetDeviceConfigAlignmentRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -286,13 +286,13 @@ func local_request_DeviceConfigStoreService_GetConfigStoreAlignment_0(ctx contex
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "dev_eui", err)
 	}
 
-	msg, err := server.GetConfigStoreAlignment(ctx, &protoReq)
+	msg, err := server.GetDeviceConfigAlignment(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
-func request_DeviceConfigStoreService_GetAvailableUplinkChannels_0(ctx context.Context, marshaler runtime.Marshaler, client DeviceConfigStoreServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetAvailableChannelsRequest
+func request_DeviceConfigStoreService_GetDeviceCurrentParams_0(ctx context.Context, marshaler runtime.Marshaler, client DeviceConfigStoreServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetDeviceCurrentParamsRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -312,13 +312,13 @@ func request_DeviceConfigStoreService_GetAvailableUplinkChannels_0(ctx context.C
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "dev_eui", err)
 	}
 
-	msg, err := client.GetAvailableUplinkChannels(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.GetDeviceCurrentParams(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_DeviceConfigStoreService_GetAvailableUplinkChannels_0(ctx context.Context, marshaler runtime.Marshaler, server DeviceConfigStoreServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetAvailableChannelsRequest
+func local_request_DeviceConfigStoreService_GetDeviceCurrentParams_0(ctx context.Context, marshaler runtime.Marshaler, server DeviceConfigStoreServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetDeviceCurrentParamsRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -338,7 +338,7 @@ func local_request_DeviceConfigStoreService_GetAvailableUplinkChannels_0(ctx con
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "dev_eui", err)
 	}
 
-	msg, err := server.GetAvailableUplinkChannels(ctx, &protoReq)
+	msg, err := server.GetDeviceCurrentParams(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -356,7 +356,7 @@ func RegisterDeviceConfigStoreServiceHandlerServer(ctx context.Context, mux *run
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.DeviceConfigStoreService/Set", runtime.WithHTTPPathPattern("/api/device_config_stores/{device_config_store.dev_eui}"))
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.DeviceConfigStoreService/Set", runtime.WithHTTPPathPattern("/api/device_config_stores/{dev_eui}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -445,19 +445,19 @@ func RegisterDeviceConfigStoreServiceHandlerServer(ctx context.Context, mux *run
 
 	})
 
-	mux.Handle("GET", pattern_DeviceConfigStoreService_GetConfigStoreAlignment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_DeviceConfigStoreService_GetDeviceConfigAlignment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.DeviceConfigStoreService/GetConfigStoreAlignment", runtime.WithHTTPPathPattern("/api/device_config_stores/{dev_eui}/alignment"))
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.DeviceConfigStoreService/GetDeviceConfigAlignment", runtime.WithHTTPPathPattern("/api/device_config_stores/{dev_eui}/alignment"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_DeviceConfigStoreService_GetConfigStoreAlignment_0(ctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_DeviceConfigStoreService_GetDeviceConfigAlignment_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -465,23 +465,23 @@ func RegisterDeviceConfigStoreServiceHandlerServer(ctx context.Context, mux *run
 			return
 		}
 
-		forward_DeviceConfigStoreService_GetConfigStoreAlignment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DeviceConfigStoreService_GetDeviceConfigAlignment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_DeviceConfigStoreService_GetAvailableUplinkChannels_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_DeviceConfigStoreService_GetDeviceCurrentParams_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.DeviceConfigStoreService/GetAvailableUplinkChannels", runtime.WithHTTPPathPattern("/api/device_config_stores/{dev_eui}/usable_uplink_channels"))
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/api.DeviceConfigStoreService/GetDeviceCurrentParams", runtime.WithHTTPPathPattern("/api/device_config_stores/{dev_eui}/device_current_config"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_DeviceConfigStoreService_GetAvailableUplinkChannels_0(ctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_DeviceConfigStoreService_GetDeviceCurrentParams_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -489,7 +489,7 @@ func RegisterDeviceConfigStoreServiceHandlerServer(ctx context.Context, mux *run
 			return
 		}
 
-		forward_DeviceConfigStoreService_GetAvailableUplinkChannels_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DeviceConfigStoreService_GetDeviceCurrentParams_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -539,7 +539,7 @@ func RegisterDeviceConfigStoreServiceHandlerClient(ctx context.Context, mux *run
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/api.DeviceConfigStoreService/Set", runtime.WithHTTPPathPattern("/api/device_config_stores/{device_config_store.dev_eui}"))
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/api.DeviceConfigStoreService/Set", runtime.WithHTTPPathPattern("/api/device_config_stores/{dev_eui}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -618,45 +618,45 @@ func RegisterDeviceConfigStoreServiceHandlerClient(ctx context.Context, mux *run
 
 	})
 
-	mux.Handle("GET", pattern_DeviceConfigStoreService_GetConfigStoreAlignment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_DeviceConfigStoreService_GetDeviceConfigAlignment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/api.DeviceConfigStoreService/GetConfigStoreAlignment", runtime.WithHTTPPathPattern("/api/device_config_stores/{dev_eui}/alignment"))
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/api.DeviceConfigStoreService/GetDeviceConfigAlignment", runtime.WithHTTPPathPattern("/api/device_config_stores/{dev_eui}/alignment"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_DeviceConfigStoreService_GetConfigStoreAlignment_0(ctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_DeviceConfigStoreService_GetDeviceConfigAlignment_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_DeviceConfigStoreService_GetConfigStoreAlignment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DeviceConfigStoreService_GetDeviceConfigAlignment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_DeviceConfigStoreService_GetAvailableUplinkChannels_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_DeviceConfigStoreService_GetDeviceCurrentParams_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/api.DeviceConfigStoreService/GetAvailableUplinkChannels", runtime.WithHTTPPathPattern("/api/device_config_stores/{dev_eui}/usable_uplink_channels"))
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/api.DeviceConfigStoreService/GetDeviceCurrentParams", runtime.WithHTTPPathPattern("/api/device_config_stores/{dev_eui}/device_current_config"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_DeviceConfigStoreService_GetAvailableUplinkChannels_0(ctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_DeviceConfigStoreService_GetDeviceCurrentParams_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_DeviceConfigStoreService_GetAvailableUplinkChannels_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DeviceConfigStoreService_GetDeviceCurrentParams_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -664,7 +664,7 @@ func RegisterDeviceConfigStoreServiceHandlerClient(ctx context.Context, mux *run
 }
 
 var (
-	pattern_DeviceConfigStoreService_Set_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"api", "device_config_stores", "device_config_store.dev_eui"}, ""))
+	pattern_DeviceConfigStoreService_Set_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"api", "device_config_stores", "dev_eui"}, ""))
 
 	pattern_DeviceConfigStoreService_Get_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"api", "device_config_stores", "dev_eui"}, ""))
 
@@ -672,9 +672,9 @@ var (
 
 	pattern_DeviceConfigStoreService_List_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "device_config_stores"}, ""))
 
-	pattern_DeviceConfigStoreService_GetConfigStoreAlignment_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"api", "device_config_stores", "dev_eui", "alignment"}, ""))
+	pattern_DeviceConfigStoreService_GetDeviceConfigAlignment_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"api", "device_config_stores", "dev_eui", "alignment"}, ""))
 
-	pattern_DeviceConfigStoreService_GetAvailableUplinkChannels_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"api", "device_config_stores", "dev_eui", "usable_uplink_channels"}, ""))
+	pattern_DeviceConfigStoreService_GetDeviceCurrentParams_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"api", "device_config_stores", "dev_eui", "device_current_config"}, ""))
 )
 
 var (
@@ -686,7 +686,7 @@ var (
 
 	forward_DeviceConfigStoreService_List_0 = runtime.ForwardResponseMessage
 
-	forward_DeviceConfigStoreService_GetConfigStoreAlignment_0 = runtime.ForwardResponseMessage
+	forward_DeviceConfigStoreService_GetDeviceConfigAlignment_0 = runtime.ForwardResponseMessage
 
-	forward_DeviceConfigStoreService_GetAvailableUplinkChannels_0 = runtime.ForwardResponseMessage
+	forward_DeviceConfigStoreService_GetDeviceCurrentParams_0 = runtime.ForwardResponseMessage
 )

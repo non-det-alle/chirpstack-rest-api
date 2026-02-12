@@ -20,12 +20,12 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	DeviceConfigStoreService_Set_FullMethodName                        = "/api.DeviceConfigStoreService/Set"
-	DeviceConfigStoreService_Get_FullMethodName                        = "/api.DeviceConfigStoreService/Get"
-	DeviceConfigStoreService_Delete_FullMethodName                     = "/api.DeviceConfigStoreService/Delete"
-	DeviceConfigStoreService_List_FullMethodName                       = "/api.DeviceConfigStoreService/List"
-	DeviceConfigStoreService_GetConfigStoreAlignment_FullMethodName    = "/api.DeviceConfigStoreService/GetConfigStoreAlignment"
-	DeviceConfigStoreService_GetAvailableUplinkChannels_FullMethodName = "/api.DeviceConfigStoreService/GetAvailableUplinkChannels"
+	DeviceConfigStoreService_Set_FullMethodName                      = "/api.DeviceConfigStoreService/Set"
+	DeviceConfigStoreService_Get_FullMethodName                      = "/api.DeviceConfigStoreService/Get"
+	DeviceConfigStoreService_Delete_FullMethodName                   = "/api.DeviceConfigStoreService/Delete"
+	DeviceConfigStoreService_List_FullMethodName                     = "/api.DeviceConfigStoreService/List"
+	DeviceConfigStoreService_GetDeviceConfigAlignment_FullMethodName = "/api.DeviceConfigStoreService/GetDeviceConfigAlignment"
+	DeviceConfigStoreService_GetDeviceCurrentParams_FullMethodName   = "/api.DeviceConfigStoreService/GetDeviceCurrentParams"
 )
 
 // DeviceConfigStoreServiceClient is the client API for DeviceConfigStoreService service.
@@ -37,16 +37,17 @@ type DeviceConfigStoreServiceClient interface {
 	// Get returns the configuration store for the given DevEUI.
 	Get(ctx context.Context, in *GetDeviceConfigStoreRequest, opts ...grpc.CallOption) (*GetDeviceConfigStoreResponse, error)
 	// Delete removes the configuration store for the device.
-	// Note: Configurations fall back to the regional default.
+	// Note: Configurations fall back to the regional default / ADR.
 	Delete(ctx context.Context, in *DeleteDeviceConfigStoreRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// List DevEUIs of devices having configuration store.
 	List(ctx context.Context, in *ListDeviceConfigStoresRequest, opts ...grpc.CallOption) (*ListDeviceConfigStoresResponse, error)
-	// Returns the configuration alignment status for the given device (whether
-	// current configurations have been acknowledged by the device).
-	GetConfigStoreAlignment(ctx context.Context, in *GetConfigStoreAlignmentRequest, opts ...grpc.CallOption) (*GetConfigStoreAlignmentResponse, error)
-	// Get data on all uplink channels currently installed on the given device.
-	// Note: Includes their current activation status, possibly not yet aligned.
-	GetAvailableUplinkChannels(ctx context.Context, in *GetAvailableChannelsRequest, opts ...grpc.CallOption) (*GetAvailableChannelsResponse, error)
+	// Returns the device's alignment status for stored configurations
+	// (whether they have been sent to and acknowledged by the device).
+	GetDeviceConfigAlignment(ctx context.Context, in *GetDeviceConfigAlignmentRequest, opts ...grpc.CallOption) (*GetDeviceConfigAlignmentResponse, error)
+	// Get the MAC layer transmission parameters currently in use by the given device as far
+	// as the server knows, based on most recent transmissions and MAC command acknowledgments.
+	// Note: Params may not yet be aligned with the ones set in the device's config store.
+	GetDeviceCurrentParams(ctx context.Context, in *GetDeviceCurrentParamsRequest, opts ...grpc.CallOption) (*GetDeviceCurrentParamsResponse, error)
 }
 
 type deviceConfigStoreServiceClient struct {
@@ -93,18 +94,18 @@ func (c *deviceConfigStoreServiceClient) List(ctx context.Context, in *ListDevic
 	return out, nil
 }
 
-func (c *deviceConfigStoreServiceClient) GetConfigStoreAlignment(ctx context.Context, in *GetConfigStoreAlignmentRequest, opts ...grpc.CallOption) (*GetConfigStoreAlignmentResponse, error) {
-	out := new(GetConfigStoreAlignmentResponse)
-	err := c.cc.Invoke(ctx, DeviceConfigStoreService_GetConfigStoreAlignment_FullMethodName, in, out, opts...)
+func (c *deviceConfigStoreServiceClient) GetDeviceConfigAlignment(ctx context.Context, in *GetDeviceConfigAlignmentRequest, opts ...grpc.CallOption) (*GetDeviceConfigAlignmentResponse, error) {
+	out := new(GetDeviceConfigAlignmentResponse)
+	err := c.cc.Invoke(ctx, DeviceConfigStoreService_GetDeviceConfigAlignment_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *deviceConfigStoreServiceClient) GetAvailableUplinkChannels(ctx context.Context, in *GetAvailableChannelsRequest, opts ...grpc.CallOption) (*GetAvailableChannelsResponse, error) {
-	out := new(GetAvailableChannelsResponse)
-	err := c.cc.Invoke(ctx, DeviceConfigStoreService_GetAvailableUplinkChannels_FullMethodName, in, out, opts...)
+func (c *deviceConfigStoreServiceClient) GetDeviceCurrentParams(ctx context.Context, in *GetDeviceCurrentParamsRequest, opts ...grpc.CallOption) (*GetDeviceCurrentParamsResponse, error) {
+	out := new(GetDeviceCurrentParamsResponse)
+	err := c.cc.Invoke(ctx, DeviceConfigStoreService_GetDeviceCurrentParams_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -120,16 +121,17 @@ type DeviceConfigStoreServiceServer interface {
 	// Get returns the configuration store for the given DevEUI.
 	Get(context.Context, *GetDeviceConfigStoreRequest) (*GetDeviceConfigStoreResponse, error)
 	// Delete removes the configuration store for the device.
-	// Note: Configurations fall back to the regional default.
+	// Note: Configurations fall back to the regional default / ADR.
 	Delete(context.Context, *DeleteDeviceConfigStoreRequest) (*emptypb.Empty, error)
 	// List DevEUIs of devices having configuration store.
 	List(context.Context, *ListDeviceConfigStoresRequest) (*ListDeviceConfigStoresResponse, error)
-	// Returns the configuration alignment status for the given device (whether
-	// current configurations have been acknowledged by the device).
-	GetConfigStoreAlignment(context.Context, *GetConfigStoreAlignmentRequest) (*GetConfigStoreAlignmentResponse, error)
-	// Get data on all uplink channels currently installed on the given device.
-	// Note: Includes their current activation status, possibly not yet aligned.
-	GetAvailableUplinkChannels(context.Context, *GetAvailableChannelsRequest) (*GetAvailableChannelsResponse, error)
+	// Returns the device's alignment status for stored configurations
+	// (whether they have been sent to and acknowledged by the device).
+	GetDeviceConfigAlignment(context.Context, *GetDeviceConfigAlignmentRequest) (*GetDeviceConfigAlignmentResponse, error)
+	// Get the MAC layer transmission parameters currently in use by the given device as far
+	// as the server knows, based on most recent transmissions and MAC command acknowledgments.
+	// Note: Params may not yet be aligned with the ones set in the device's config store.
+	GetDeviceCurrentParams(context.Context, *GetDeviceCurrentParamsRequest) (*GetDeviceCurrentParamsResponse, error)
 	mustEmbedUnimplementedDeviceConfigStoreServiceServer()
 }
 
@@ -149,11 +151,11 @@ func (UnimplementedDeviceConfigStoreServiceServer) Delete(context.Context, *Dele
 func (UnimplementedDeviceConfigStoreServiceServer) List(context.Context, *ListDeviceConfigStoresRequest) (*ListDeviceConfigStoresResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
 }
-func (UnimplementedDeviceConfigStoreServiceServer) GetConfigStoreAlignment(context.Context, *GetConfigStoreAlignmentRequest) (*GetConfigStoreAlignmentResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetConfigStoreAlignment not implemented")
+func (UnimplementedDeviceConfigStoreServiceServer) GetDeviceConfigAlignment(context.Context, *GetDeviceConfigAlignmentRequest) (*GetDeviceConfigAlignmentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDeviceConfigAlignment not implemented")
 }
-func (UnimplementedDeviceConfigStoreServiceServer) GetAvailableUplinkChannels(context.Context, *GetAvailableChannelsRequest) (*GetAvailableChannelsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAvailableUplinkChannels not implemented")
+func (UnimplementedDeviceConfigStoreServiceServer) GetDeviceCurrentParams(context.Context, *GetDeviceCurrentParamsRequest) (*GetDeviceCurrentParamsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDeviceCurrentParams not implemented")
 }
 func (UnimplementedDeviceConfigStoreServiceServer) mustEmbedUnimplementedDeviceConfigStoreServiceServer() {
 }
@@ -241,38 +243,38 @@ func _DeviceConfigStoreService_List_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DeviceConfigStoreService_GetConfigStoreAlignment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetConfigStoreAlignmentRequest)
+func _DeviceConfigStoreService_GetDeviceConfigAlignment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDeviceConfigAlignmentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeviceConfigStoreServiceServer).GetConfigStoreAlignment(ctx, in)
+		return srv.(DeviceConfigStoreServiceServer).GetDeviceConfigAlignment(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DeviceConfigStoreService_GetConfigStoreAlignment_FullMethodName,
+		FullMethod: DeviceConfigStoreService_GetDeviceConfigAlignment_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceConfigStoreServiceServer).GetConfigStoreAlignment(ctx, req.(*GetConfigStoreAlignmentRequest))
+		return srv.(DeviceConfigStoreServiceServer).GetDeviceConfigAlignment(ctx, req.(*GetDeviceConfigAlignmentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DeviceConfigStoreService_GetAvailableUplinkChannels_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAvailableChannelsRequest)
+func _DeviceConfigStoreService_GetDeviceCurrentParams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDeviceCurrentParamsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeviceConfigStoreServiceServer).GetAvailableUplinkChannels(ctx, in)
+		return srv.(DeviceConfigStoreServiceServer).GetDeviceCurrentParams(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DeviceConfigStoreService_GetAvailableUplinkChannels_FullMethodName,
+		FullMethod: DeviceConfigStoreService_GetDeviceCurrentParams_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceConfigStoreServiceServer).GetAvailableUplinkChannels(ctx, req.(*GetAvailableChannelsRequest))
+		return srv.(DeviceConfigStoreServiceServer).GetDeviceCurrentParams(ctx, req.(*GetDeviceCurrentParamsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -301,12 +303,12 @@ var DeviceConfigStoreService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DeviceConfigStoreService_List_Handler,
 		},
 		{
-			MethodName: "GetConfigStoreAlignment",
-			Handler:    _DeviceConfigStoreService_GetConfigStoreAlignment_Handler,
+			MethodName: "GetDeviceConfigAlignment",
+			Handler:    _DeviceConfigStoreService_GetDeviceConfigAlignment_Handler,
 		},
 		{
-			MethodName: "GetAvailableUplinkChannels",
-			Handler:    _DeviceConfigStoreService_GetAvailableUplinkChannels_Handler,
+			MethodName: "GetDeviceCurrentParams",
+			Handler:    _DeviceConfigStoreService_GetDeviceCurrentParams_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

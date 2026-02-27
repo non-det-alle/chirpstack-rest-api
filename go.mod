@@ -163,4 +163,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/chirpstack/chirpstack/api/go/v4 => github.com/non-det-alle/chirpstack/api/go/v4 v4.16.3-0.20260212185842-468e02d14f92
+replace github.com/chirpstack/chirpstack/api/go/v4 => github.com/nondetalle/chirpstack/api/go/v4 v4.16.3-0.20260212185842-468e02d14f92
